@@ -8,7 +8,7 @@ public class FunRide extends Location {
     //Define Constructor
     public FunRide (String name, double cost, int funPoints) {
         super(name);
-        COST = Math.round(cost * 100) / 100.0;              //shall we round here?
+        COST = Math.round(cost * 100) / 100.0;
         FUN_POINTS = funPoints;
     }
 
@@ -26,6 +26,6 @@ public class FunRide extends Location {
     @Override
     public String toString () {
         return super.toString() +
-                " or rest\nA ride cost "+this.getCOST()+"€ and you will receive "+this.getFUN_POINTS()+" fun points";
+                "or ride\nA ride cost "+this.getCOST()+"€ and you will receive "+this.getFUN_POINTS()+" fun points";
     }
 }

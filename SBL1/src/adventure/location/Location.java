@@ -1,6 +1,5 @@
 package adventure.location;
 
-import java.lang.management.LockInfo;
 
 public class Location {
     private String name;
@@ -12,14 +11,10 @@ public class Location {
         //define constructor
     public Location(String name) {
         this.name = name;
-        /*leftLocation = null;
-        rightLocation = null;           //Necessary?
-        upLocation = null;
-        downLocation = null;*/
     }
 
         //default constructor
-    public Location () {            //redundant?
+    public Location () {
     }
 
     //method returns name of the Object
@@ -44,7 +39,7 @@ public class Location {
         if (direction.equals("up")) {
             location.downLocation = this;
             this.upLocation = location;
-        } else if (direction.equals("down")) {              //Strings can't be checked for equality with "==". Needs equals
+        } else if (direction.equals("down")) {
             location.upLocation = this;
             this.downLocation = location;
         } else if (direction.equals("right")) {
@@ -60,13 +55,13 @@ public class Location {
         public String toString() {
             String str = "You are here: " + this.getName() + ". You can go: ";
             if (getNeighbouringLocation("left")  != null)
-                str += "left";
+                str += "left ";
             if (getNeighbouringLocation("right") != null)
-                str += "right";
+                str += "right ";
             if (getNeighbouringLocation("up") != null)
-                str += "up";
+                str += "up ";
             if (getNeighbouringLocation("down") != null)
-                str += "down";
+                str += "down ";
             return str;
         }
 
@@ -90,6 +85,5 @@ public class Location {
     }
 
     public static void main (String [] args) {
-        // Create Paths
     }
 }

@@ -1,6 +1,7 @@
 package adventure.game;
-import adventure.location.FunRide;
 import adventure.location.Location;
+import adventure.location.FunRide;
+import adventure.location.Facility;
 
 import java.util.Random;
 
@@ -22,7 +23,7 @@ public class Player {
         funPoints = 0;
     }
 
-    /* getter Methods of adventure.game.Player class*/
+    /* getter Methods of Player class*/
 
     public double getMoney() {
         return money;               //returns actual amount of money the player has
@@ -45,12 +46,12 @@ public class Player {
     }
 
     /* walk method: moves Player towards the intended direction */
+
     public void walk(String direction) {
         Location location = new Location();
-        this.currentLocation = location.getNeighbouringLocation(direction);                 //Is it right?
+        this.currentLocation = currentLocation.getNeighbouringLocation(direction);
         energy -= 10;
     }
-
     /* gameOver method: Player is GameOver. funPoints become 0 and he is set at given location.  */
 
     public void gameOver(Location location) {
@@ -59,41 +60,26 @@ public class Player {
     }
 
     public void stay() {
-        // Check if player has enough money & energy points         //Don't know how to check it from Facility class or FunRide class
+        if (currentLocation.getClass().equals(FunRide.class)) {
+            FunRide funRide = (FunRide) currentLocation;
+            if (getMoney() >= funRide.getCOST() && getEnergy() >= 5) {
+                this.energy -= 5;
+                this.funPoints += funRide.getFUN_POINTS();
+                this.money -= funRide.getCOST();
+            }
+        } else if (currentLocation.getClass().equals(Facility.class)) {
+            Facility facility = (Facility) currentLocation;
+            if (getMoney() >= facility.getCOST()) {
+                this.energy += facility.getENERGY_POINTS();
+                this.money -= facility.getCOST();
+            }
+        }
+
     }
 
-    public static void main (String [] args) {
-
-        Location rollerCoaster = new Location("Roller Coaster");
-        Location restroom = new Location("Restroom");
-        Location bumperCar = new Location("Bumper Car");
-        Location kiosk = new Location("Kiosk");
-        Location wildWaterChannel = new Location("Wild-Water Channel");
-        Location restaurant = new Location("Restaurant");
-        Location carousel = new Location("Carousel");
-        Location freefallTower = new Location("Freefall Tower");
-        Location entrance = new Location("Entrance");
-        Location parkingLot = new Location("Parking Lot");
-
-        // Create Paths
-        rollerCoaster.createPath("up", restroom);
-        restroom.createPath("left", bumperCar);
-        bumperCar.createPath("down", kiosk);
-        bumperCar.createPath("left", wildWaterChannel);
-        wildWaterChannel.createPath("down", restaurant);
-        restaurant.createPath("down", carousel);
-        kiosk.createPath("left", carousel);
-        restaurant.createPath("left", freefallTower);
-        freefallTower.createPath("down", entrance);
-        carousel.createPath("left", entrance);
-        entrance.createPath("down", parkingLot);
-
-
-        Player one = new Player(rollerCoaster);
-        System.out.println(one.toString());
-        one.walk("up");                     //Direction is null?
-        System.out.println(one.toString());
-    }
+    public Location getCurrentLocation() {
+        return currentLocation;
+    }       //helper method (not compulsory)
 
 
 }

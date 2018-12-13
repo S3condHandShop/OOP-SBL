@@ -27,7 +27,7 @@ public class Facility extends Location {
     @Override
     public String toString () {
         return super.toString() +
-                " or rest\nA rest cost "+this.getCOST()+"€ and you will receive "+this.ENERGY_POINTS+" energy points";
+                "or rest\nA rest cost "+this.getCOST()+"€ and you will receive "+this.ENERGY_POINTS+" energy points";
     }
 
 
